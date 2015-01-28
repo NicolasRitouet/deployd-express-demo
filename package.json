@@ -1,7 +1,7 @@
 {
   "name": "deployd-express-demo",
   "version": "0.0.1",
-  "description": "Demo of Express used as Deployd middleware",
+  "description": "Demo of Deployd used as Express middleware",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
