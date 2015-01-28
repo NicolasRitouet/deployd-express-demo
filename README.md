@@ -4,7 +4,7 @@
 
 [![wercker status](https://app.wercker.com/status/0e99cbcb13643ef223f0206a0396dd6c/m "wercker status")](https://app.wercker.com/project/bykey/0e99cbcb13643ef223f0206a0396dd6c)
 
-https://img.shields.io/david/nicolasritouet/deployd-express-demo.svg
+[![Dependencies](https://img.shields.io/david/nicolasritouet/deployd-express-demo.svg)](https://david-dm.org/NicolasRitouet/deployd-express-demo)
 
 
 ## Getting started
