@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,10 @@
   "dependencies": {
     "deployd": "git://github.com/deployd/deployd.git#v0.8.0-rc.2",
     "express": "^4.11.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
   }
 }

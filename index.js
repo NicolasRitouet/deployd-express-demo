@@ -5,7 +5,7 @@ var ENV = process.env.NODE_ENV || 'development';
 
 // setup express
 var express = require('express');
-var app = express();
+var app = exports.app = express();
 var server = require('http').createServer(app);
 
 
