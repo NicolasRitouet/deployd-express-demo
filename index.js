@@ -3,6 +3,9 @@
 var PORT = process.env.PORT || 3000;
 var ENV = process.env.NODE_ENV || 'development';
 
+var MONGODB_HOST = process.env.WERCKER_MONGODB_HOST || 'localhost';
+var MONGODB_PORT = process.env.WERCKER_MONGODB_PORT || 27017;
+
 // setup express
 var express = require('express');
 var app = exports.app = express();
@@ -16,7 +19,7 @@ app.get('/', function (req, res) {
 // setup deployd
 require('deployd').attach(server, {
   env: ENV,
-  db: {host:'localhost', port:27017, name:'test-app'}
+  db: {host: MONGODB_HOST, port: MONGODB_PORT, name: 'test-app'}
 });
 
 // After attach, express can use server.handleRequest as middleware
