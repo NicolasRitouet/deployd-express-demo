@@ -1,6 +1,4 @@
 # Express-Deployd demo
-<<<<<<< HEAD
-=======
 
 > Demo of Deployd used as an Express middleware
 
@@ -17,4 +15,3 @@ npm install
 npm start
 ````
 Browse to [http://localhost:3000/dashboard](http://localhost:3000/dashboard) to see the dashboard.
->>>>>>> 8c72f2d... Add dashboard link in README.md
