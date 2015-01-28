@@ -1,0 +1,27 @@
+{
+  "name": "deployd-express-demo",
+  "version": "0.0.1",
+  "description": "Demo of Express used as Deployd middleware",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:NicolasRitouet/deployd-express-demo.git"
+  },
+  "keywords": [
+    "deployd"
+  ],
+  "author": "Nicolas Ritouet <nicolas@ritouet.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NicolasRitouet/deployd-express-demo/issues"
+  },
+  "homepage": "https://github.com/NicolasRitouet/deployd-express-demo",
+  "dependencies": {
+    "deployd": "git://github.com/deployd/deployd.git#v0.8.0-rc.2",
+    "express": "^4.11.1"
+  }
+}

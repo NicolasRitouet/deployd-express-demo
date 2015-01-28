@@ -1,0 +1,13 @@
+{
+	"type": "Collection",
+	"properties": {
+		"message": {
+			"name": "message",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "message",
+			"order": 0
+		}
+	}
+}
