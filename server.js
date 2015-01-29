@@ -12,7 +12,7 @@ var app = exports.app = express();
 var server = require('http').createServer(app);
 
 
-app.get('/', function (req, res) {
+app.get('/hello-express', function (req, res) {
   res.send('Hello World!')
 });
 
@@ -27,5 +27,6 @@ app.use(server.handleRequest);
 
 // start server
 server.listen(PORT, function() {
-  console.log('Express & Deployd listening at http://%s:%s', server.address().address, server.address().port)
+  var serverAddr = server.address().address == '0.0.0.0' ? 'localhost' : server.address().address;
+  console.log('Express & Deployd started.\n\nPlease visit http://%s:%s', serverAddr, server.address().port)
 });

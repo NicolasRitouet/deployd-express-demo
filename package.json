@@ -2,9 +2,9 @@
   "name": "deployd-express-demo",
   "version": "0.0.1",
   "description": "Demo of Deployd used as Express middleware",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "./node_modules/.bin/mocha"
   },
   "repository": {
