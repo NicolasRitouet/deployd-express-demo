@@ -9,11 +9,12 @@ var ENV = process.env.NODE_ENV || 'development';
 var MONGODB_HOST = process.env.WERCKER_MONGODB_HOST || 'localhost';
 var MONGODB_PORT = process.env.WERCKER_MONGODB_PORT || 27017;
 var MONGODB_DB = 'test-app';
-var MONGODB_USERNAME = '';
-var MONGODB_PASS = '';
+var MONGODB_USERNAME;
+var MONGODB_PASS;
 
 // On Heroku, Mongolab add this variable to
 if (process.env.MONGOLAB_URI) {
+  console.log('Variable MONGOLAB_URI exists', process.env.MONGOLAB_URI);
   var uriObject = require('mongodb-uri').parse(process.env.MONGOLAB_URI);
   MONGODB_HOST = uriObject.hosts[0].host;
   MONGODB_PORT = uriObject.hosts[0].port;
@@ -21,6 +22,20 @@ if (process.env.MONGOLAB_URI) {
   MONGODB_USERNAME = uriObject.username;
   MONGODB_PASS = uriObject.password;
 }
+var dbOptions = {
+  host: MONGODB_HOST,
+  port: MONGODB_PORT,
+  name: MONGODB_DB
+}
+
+// damn, this is ugly, refactor this !
+if (MONGODB_USERNAME && MONGODB_PASS) {
+  dbOptions.credentials = {};
+  dbOptions.credentials.username = MONGODB_USERNAME;
+  dbOptions.credentials.password = MONGODB_PASS;
+}
+
+console.log('Using MongoDB:', dbOptions);
 
 // setup express
 var app = exports.app = express();
@@ -34,15 +49,7 @@ app.get('/hello-express', function (req, res) {
 // setup deployd
 require('deployd').attach(server, {
   env: ENV,
-  db: {
-    host: MONGODB_HOST,
-    port: MONGODB_PORT,
-    name: MONGODB_DB,
-    credentials: {
-      username: MONGODB_USERNAME,
-      password: MONGODB_PASS
-    }
-  }
+  db: dbOptions
 });
 
 // After attach, express can use server.handleRequest as middleware
