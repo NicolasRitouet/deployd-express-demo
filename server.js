@@ -3,38 +3,10 @@
 var express = require('express');
 var http = require('http');
 
-var PORT = process.env.PORT || 3000;
-var ENV = process.env.NODE_ENV || 'development';
+var serverPort = process.env.PORT || 3000;
+var nodeEnv = process.env.NODE_ENV || 'development';
 
-var MONGODB_HOST = process.env.WERCKER_MONGODB_HOST || 'localhost';
-var MONGODB_PORT = process.env.WERCKER_MONGODB_PORT || 27017;
-var MONGODB_DB = 'test-app';
-var MONGODB_USERNAME;
-var MONGODB_PASS;
-
-// On Heroku, Mongolab add this variable to
-if (process.env.MONGOLAB_URI) {
-  console.log('Variable MONGOLAB_URI exists', process.env.MONGOLAB_URI);
-  var uriObject = require('mongodb-uri').parse(process.env.MONGOLAB_URI);
-  MONGODB_HOST = uriObject.hosts[0].host;
-  MONGODB_PORT = uriObject.hosts[0].port;
-  MONGODB_DB = uriObject.database;
-  MONGODB_USERNAME = uriObject.username;
-  MONGODB_PASS = uriObject.password;
-}
-var dbOptions = {
-  host: MONGODB_HOST,
-  port: MONGODB_PORT,
-  name: MONGODB_DB
-}
-
-// damn, this is ugly, refactor this !
-if (MONGODB_USERNAME && MONGODB_PASS) {
-  dbOptions.credentials = {};
-  dbOptions.credentials.username = MONGODB_USERNAME;
-  dbOptions.credentials.password = MONGODB_PASS;
-}
-
+var dbOptions = buildDbOptions();
 console.log('Using MongoDB:', dbOptions);
 
 // setup express
@@ -43,12 +15,12 @@ var server = http.createServer(app);
 
 // Define a new route
 app.get('/hello-express', function (req, res) {
-  res.send('Hello World!');
+  res.send('Hello Deployd!');
 });
 
 // setup deployd
 require('deployd').attach(server, {
-  env: ENV,
+  env: nodeEnv,
   db: dbOptions
 });
 
@@ -56,7 +28,41 @@ require('deployd').attach(server, {
 app.use(server.handleRequest);
 
 // start server
-server.listen(PORT, function() {
+server.listen(serverPort, function() {
   var serverAddr = server.address().address == '0.0.0.0' ? 'localhost' : server.address().address;
   console.log('Express & Deployd started.\n\nPlease visit http://%s:%s', serverAddr, server.address().port);
 });
+
+
+// Build the options for the DB based on env
+function buildDbOptions() {
+  var mongodbHost,
+      mongodbPort,
+      mongodbDb,
+      mongodbUsername,
+      mongodbPass,
+      dbOptions;
+
+  // On Heroku, Mongolab add this variable to
+  if (process.env.MONGOLAB_URI) {
+    console.log('Variable MONGOLAB_URI exists', process.env.MONGOLAB_URI);
+    var uriObject = require('mongodb-uri').parse(process.env.MONGOLAB_URI);
+    mongodbHost = uriObject.hosts[0].host;
+    mongodbPort = uriObject.hosts[0].port;
+    mongodbDb = uriObject.database;
+    mongodbUsername = uriObject.username;
+    mongodbPass = uriObject.password;
+  }
+  dbOptions = {
+    host: mongodbHost || process.env.WERCKER_MONGODB_HOST || 'localhost',
+    port: mongodbPort || process.env.WERCKER_MONGODB_PORT || 27017,
+    name: mongodbDb || 'test-app'
+  }
+
+  if (mongodbUsername && mongodbPass) {
+    dbOptions.credentials = {};
+    dbOptions.credentials.username = mongodbUsername;
+    dbOptions.credentials.password = mongodbPass;
+  }
+  return dbOptions;
+}
