@@ -1,5 +1,7 @@
 # Express-Deployd demo
 
+## This feature (express integration) hasn't been released yet, to try it, use [the release candidate tag v0.8.0-rc.2](https://github.com/NicolasRitouet/deployd-express-demo/blob/master/package.json#L24) in your package.json
+
 > Demo of Deployd used as an Express middleware
 
 Demo available on Heroku: [https://deployd-express-demo.herokuapp.com]
