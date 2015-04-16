@@ -36,33 +36,16 @@ server.listen(serverPort, function() {
 
 // Build the options for the DB based on env
 function buildDbOptions() {
-  var mongodbHost,
-      mongodbPort,
-      mongodbDb,
-      mongodbUsername,
-      mongodbPass,
-      dbOptions;
 
   // On Heroku, Mongolab add this variable to
   if (process.env.MONGOLAB_URI) {
     console.log('Variable MONGOLAB_URI exists', process.env.MONGOLAB_URI);
-    var uriObject = require('mongodb-uri').parse(process.env.MONGOLAB_URI);
-    mongodbHost = uriObject.hosts[0].host;
-    mongodbPort = uriObject.hosts[0].port;
-    mongodbDb = uriObject.database;
-    mongodbUsername = uriObject.username;
-    mongodbPass = uriObject.password;
-  }
-  dbOptions = {
-    host: mongodbHost || process.env.WERCKER_MONGODB_HOST || 'localhost',
-    port: mongodbPort || process.env.WERCKER_MONGODB_PORT || 27017,
-    name: mongodbDb || 'test-app'
+    return { connectionString: process.env.MONGOHQ_URL };
   }
 
-  if (mongodbUsername && mongodbPass) {
-    dbOptions.credentials = {};
-    dbOptions.credentials.username = mongodbUsername;
-    dbOptions.credentials.password = mongodbPass;
+  return {
+    host: process.env.WERCKER_MONGODB_HOST || 'localhost',
+    port: process.env.WERCKER_MONGODB_PORT || 27017,
+    name: 'test-app'
   }
-  return dbOptions;
 }
