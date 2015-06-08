@@ -40,7 +40,7 @@ function buildDbOptions() {
   // On Heroku, Mongolab add this variable to
   if (process.env.MONGOLAB_URI) {
     console.log('Variable MONGOLAB_URI exists', process.env.MONGOLAB_URI);
-    return { connectionString: process.env.MONGOHQ_URL };
+    return { connectionString: process.env.MONGOLAB_URI };
   }
 
   return {
