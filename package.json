@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/NicolasRitouet/deployd-express-demo",
   "dependencies": {
-    "deployd": "^0.8.7",
+    "deployd": "^1.1.2",
     "express": "^4.11.1"
   },
   "devDependencies": {
