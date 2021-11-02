@@ -1,6 +1,6 @@
 {
   "name": "deployd-express-demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Demo of Deployd used as Express middleware",
   "main": "server.js",
   "scripts": {
@@ -21,15 +21,12 @@
   },
   "homepage": "https://github.com/NicolasRitouet/deployd-express-demo",
   "dependencies": {
-    "deployd": "^0.8.7",
-    "express": "^4.11.1"
+    "deployd": "^1.2.0",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.1.2",
     "supertest": "^2.0.0"
-  },
-  "engines": {
-    "node": "0.12.x"
   }
 }
